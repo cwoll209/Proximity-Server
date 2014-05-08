@@ -1,6 +1,7 @@
-package ui;
+package com.test.ui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -15,9 +16,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import server.Server;
-import util.DataLogger;
-import util.RSSIMessage;
+import com.test.server.Server;
+import com.test.util.DataLogger;
+import com.test.util.RSSIMessage;
 
 public class ProximityViewer extends JFrame {
 	Server server;
@@ -29,10 +30,12 @@ public class ProximityViewer extends JFrame {
 	JButton btnStart;
 
 	public ProximityViewer() {
-
+		pack();
 		rootPanel = new JPanel(new GridBagLayout());
+
 		setTitle("Proximity Viewer");
 		setSize(800, 600);
+//		setPreferredSize(new Dimension(800, 600));
 		getContentPane().add(rootPanel);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -45,6 +48,7 @@ public class ProximityViewer extends JFrame {
 		initCanvasPanel();
 		initLogPanel();
 		initControlPanel();
+		
 
 	}
 

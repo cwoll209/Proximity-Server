@@ -1,4 +1,4 @@
-package server;
+package com.test.server;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -8,9 +8,9 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import util.DataLogger;
-import util.IPUtil;
-import util.RSSIMessage;
+import com.test.util.DataLogger;
+import com.test.util.IPUtil;
+import com.test.util.RSSIMessage;
 
 public class Server {
 

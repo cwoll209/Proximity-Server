@@ -1,6 +1,8 @@
-package util;
+package com.test.util;
 
 import java.io.Serializable;
+
+import com.test.util.RSSIData;
 
 public class RSSIMessage implements Serializable {
 

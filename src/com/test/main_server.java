@@ -1,9 +1,10 @@
+package com.test;
 import java.net.ServerSocket;
 
 import javax.swing.SwingUtilities;
 
-import server.Server;
-import ui.ProximityViewer;
+import com.test.server.Server;
+import com.test.ui.ProximityViewer;
 
 public class main_server {
 	
@@ -15,6 +16,7 @@ public class main_server {
 
 			public void run() {
 				window = new ProximityViewer();
+		
 
 			}
 		});

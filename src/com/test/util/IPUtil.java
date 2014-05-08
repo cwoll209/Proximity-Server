@@ -1,4 +1,4 @@
-package util;
+package com.test.util;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
