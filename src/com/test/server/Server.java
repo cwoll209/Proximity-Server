@@ -14,7 +14,7 @@ import com.test.util.RSSIMessage;
 
 public class Server {
 
-	boolean running;
+	volatile boolean running;
 	DataLogger logger;
 	ServerSocket socket;
 	Socket clientSocket;
@@ -34,8 +34,7 @@ public class Server {
 				System.out.println(i);
 			}
 			System.out.println(netAdd.getHostAddress());
-			socket = new ServerSocket(port, 0, netAdd);
-			logger = DataLogger.getInstance();
+		
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,11 +50,13 @@ public class Server {
 			ois.close();
 		if (clientSocket != null)
 			clientSocket.close();
-		socket.close();
+//		socket.close();
 
 	}
 
 	public void run() throws Exception {
+		socket = new ServerSocket(12345, 0, InetAddress.getByName("192.42.21.111"));
+		logger = DataLogger.getInstance();
 		running = true;
 		System.out.println("Waiting for client to connect:");
 		clientSocket = socket.accept();

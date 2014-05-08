@@ -28,9 +28,11 @@ public class ProximityViewer extends JFrame {
 	JPanel rootPanel;
 	TextLog textLog;
 	JButton btnStart;
+	boolean hasBeenStarted;
 
 	public ProximityViewer() {
 		pack();
+		hasBeenStarted = false;
 		rootPanel = new JPanel(new GridBagLayout());
 
 		setTitle("Proximity Viewer");
@@ -101,10 +103,10 @@ public class ProximityViewer extends JFrame {
 		btnStart = new JButton("Start server");
 
 		btnStart.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Start button pressed");
 
+			if(!hasBeenStarted)
 				serverThread.start();
 				dataThread.start();
 
@@ -117,7 +119,7 @@ public class ProximityViewer extends JFrame {
 
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Shutdown button pressed");
-			
+				hasBeenStarted = true;
 				try {
 					server.shutdown();
 				} catch (IOException e) {
