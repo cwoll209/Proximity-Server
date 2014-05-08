@@ -35,7 +35,7 @@ public class ProximityViewer extends JFrame {
 
 		setTitle("Proximity Viewer");
 		setSize(800, 600);
-//		setPreferredSize(new Dimension(800, 600));
+		// setPreferredSize(new Dimension(800, 600));
 		getContentPane().add(rootPanel);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -48,7 +48,7 @@ public class ProximityViewer extends JFrame {
 		initCanvasPanel();
 		initLogPanel();
 		initControlPanel();
-		
+		server = new Server(8080);
 
 	}
 
@@ -61,8 +61,8 @@ public class ProximityViewer extends JFrame {
 					container = DataLogger.getInstance().read();
 					if (container != null) {
 						textLog.writeLineToLog(container.toString());
-					}else{
-//						textLog.writeLineToLog("!LIFO Empty!");
+					} else {
+						// textLog.writeLineToLog("!LIFO Empty!");
 					}
 				}
 			}
@@ -72,7 +72,7 @@ public class ProximityViewer extends JFrame {
 			public void run() {
 
 				try {
-					server = new Server(8080);
+					server.run();
 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -117,14 +117,13 @@ public class ProximityViewer extends JFrame {
 
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Shutdown button pressed");
+			
 				try {
 					server.shutdown();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				serverThread.stop();
-				dataThread.stop();
 
 			}
 		});

@@ -21,65 +21,63 @@ public class Server {
 	DataInputStream is;
 	ObjectInputStream ois;
 	PrintStream os;
-	
-
 
 	public Server(int port) {
 
 		try {
-			String ip = IPUtil.sendIP(port);
-			IPUtil.requestIP();
-			InetAddress netAdd = InetAddress.getByName("localhost");
+			port = 12345;
+			// String ip = IPUtil.sendIP(port);
+			// IPUtil.requestIP();
+
+			InetAddress netAdd = InetAddress.getByName("192.42.21.111");
+			for (InetAddress i : InetAddress.getAllByName("192.42.21.111")) {
+				System.out.println(i);
+			}
 			System.out.println(netAdd.getHostAddress());
-			socket = new ServerSocket(port);
+			socket = new ServerSocket(port, 0, netAdd);
 			logger = DataLogger.getInstance();
-			
-			run();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-	
-
 
 	public void shutdown() throws IOException {
 		System.out.println("Server shutting down");
 		running = false;
-//		is.close();
-		clientSocket.close();
+		// is.close();
+		if (ois != null)
+			ois.close();
+		if (clientSocket != null)
+			clientSocket.close();
 		socket.close();
-		os.close();
+
 	}
 
 	public void run() throws Exception {
 		running = true;
 		System.out.println("Waiting for client to connect:");
 		clientSocket = socket.accept();
-//		is = new DataInputStream(clientSocket.getInputStream());
+		// is = new DataInputStream(clientSocket.getInputStream());
 		ois = new ObjectInputStream(clientSocket.getInputStream());
 
-		System.out.println("Client accepted: "
-				+ clientSocket.getInetAddress().getHostAddress());
+		System.out.println("Client accepted: " + clientSocket.getInetAddress().getHostAddress());
 		String line = "";
 
 		while (running) {
 			RSSIMessage container;
 			Object o = ois.readObject();
-			
-			
-			
+
 			if (o instanceof RSSIMessage) {
 				container = (RSSIMessage) o;
 				if (container.end) {
 					running = false;
-				
+
 				}
 				logger.write(container);
-				
-				
+
 			}
-		
 
 		}
 		shutdown();
